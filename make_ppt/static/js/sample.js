@@ -3,12 +3,22 @@ console.log('Load');
 var card_count = 1;
 var re = new RegExp('/delete_card_\d/');
 
+<<<<<<< HEAD
 var currentPageUrl = location.pathname;
 currentPageUrl = currentPageUrl.split("/");
 currentPageUrl = currentPageUrl[currentPageUrl.length - 1];
 
 var state = {"targetPageUrl": currentPageUrl};
 history.replaceState(state, currentPageUrl.split(".")[0], currentPageUrl);
+=======
+
+window.addEventListener("popstate", function(event){
+    if(event.state != null){
+        $(this).html(event.state.page);
+    }
+}
+)
+>>>>>>> a0ea00926bc7c938fb4f596029d315ba43fbad4a
 
 // Append card.
 function makecard(k) {
@@ -64,11 +74,15 @@ function makecard(k) {
     card.appendChild(card_body);
 
     document.getElementById('card_list').appendChild(card);
+<<<<<<< HEAD
 
     var snapshot = new XMLSerializer().serializeToString(document);
 
     console.log(snapshot);
 
+=======
+    history.pushState('test', null, '/index');
+>>>>>>> a0ea00926bc7c938fb4f596029d315ba43fbad4a
 }
 
 // Append mutable side bar.
