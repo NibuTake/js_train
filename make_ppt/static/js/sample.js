@@ -3,6 +3,14 @@ console.log('Load');
 var card_count = 1;
 var re = new RegExp('/delete_card_\d/');
 
+
+window.addEventListener("popstate", function(event){
+    if(event.state != null){
+        $(this).html(event.state.page);
+    }
+}
+)
+
 // Append card.
 function makecard(k) {
     // Card.
@@ -57,6 +65,7 @@ function makecard(k) {
     card.appendChild(card_body);
 
     document.getElementById('card_list').appendChild(card);
+    history.pushState('test', null, '/index');
 }
 
 // Append mutable side bar.
