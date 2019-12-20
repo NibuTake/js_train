@@ -8,7 +8,7 @@ name = 'unknown'
 
 @app.route("/")
 def hello():
-    return "Hello World"
+    return "Hello World " + name
 
 
 @app.route("/index")
@@ -16,7 +16,7 @@ def index():
     return render_template("index.html")
 
 @app.route("/cookie_pie")
-def cocckie_pie():
+def cocckie_pie(name):
     if request.cookies.get('name'):
         name = request.cookies.get('name')
         print('get cookie')

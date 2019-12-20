@@ -57,22 +57,14 @@ javaScriptのdocument.cookieは文字列として入っているのでパース�
 
 ```javaScript
 function parseCookie(doc_cookie) {
-    var cookie_key = [];
-    var cookie_value = [];
     var doc_cookie_array = doc_cookie.split("; ");
+    var cookie_json = {};
 
     for (var ck of doc_cookie_array){
         var add_data = ck.split("=");
-        cookie_key.push(add_data[0]);
-        cookie_value.push(add_data[1]);
+        cookie_json[add_data[0]] = add_data[1];
     }
-
-    var cookie_json = {};
-
-    for (k in doc_cookie_array){
-        cookie_json[cookie_key[k]] = cookie_value[k];
-    }
-    return cookie_json; 
+    return cookie_json;
 }
 
 var cookie = parseCookie(document.cookie);
