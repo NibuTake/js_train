@@ -3,6 +3,13 @@ console.log('Load');
 var card_count = 1;
 var re = new RegExp('/delete_card_\d/');
 
+var currentPageUrl = location.pathname;
+currentPageUrl = currentPageUrl.split("/");
+currentPageUrl = currentPageUrl[currentPageUrl.length - 1];
+
+var state = {"targetPageUrl": currentPageUrl};
+history.replaceState(state, currentPageUrl.split(".")[0], currentPageUrl);
+
 // Append card.
 function makecard(k) {
     // Card.
@@ -57,6 +64,11 @@ function makecard(k) {
     card.appendChild(card_body);
 
     document.getElementById('card_list').appendChild(card);
+
+    var snapshot = new XMLSerializer().serializeToString(document);
+
+    console.log(snapshot);
+
 }
 
 // Append mutable side bar.
