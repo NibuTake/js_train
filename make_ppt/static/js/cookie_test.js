@@ -25,6 +25,15 @@ $("#get_cookie").on("click", function () {
       });
 });
 
+
+$("#get_storage").on("click", function () {
+    $.getJSON($SCRIPT_ROOT + '/get_storage', {storage: JSON.stringify(storage)},
+    function(data) {
+        console.log(data.storage);
+    return false;
+      });
+});
+
 function replaceTextCook(cookie) {
     console.log(cookie);
     var sam = document.getElementById("allcookie");
@@ -43,3 +52,21 @@ function parseCookie(doc_cookie) {
     }
     return cookie_json;
 }
+
+var storage = localStorage;
+
+storage.setItem('TIC', 'yaranaakan');
+storage.setItem('sshr', '8');
+storage.setItem('un', 'ko');
+
+console.log(storage.TIC);
+
+function getStorage(storage) {
+    for (var i = 0, len = storage.length; i < len; i++){
+        var key = storage.key(i);
+        var val = storage[key];
+        console.log(key + '_' + val);
+    }
+}
+
+getStorage(storage);

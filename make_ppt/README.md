@@ -1,8 +1,23 @@
-# Cookie
+# データの保存
 
-Flask、javaScriptのどちらからも扱える。
+## 種類
 
-## 設定
+### Cookie　
+- 容量：　4KBまで。
+- アクセス：　サーバーからも見れるし入れられる。
+- 期間：　決められる
+
+### Storage
+- 容量：　5MBまで。
+- アクセス：　サーバーからは直接扱えない。
+- 期間：　localとsessionがある。localは継続、sessionはブラウザ閉じるまで。
+
+1つの物件だけならCookieで間に合うかもしれないが、一人当たり複数物件を持つはずなのでStorageを使う方がいいかもしれない。Cookieはまた別のデータを扱うようにするなどで分ける。
+
+
+## Cookie
+
+### 設定
 
 - Flaskから扱う場合
 
@@ -33,7 +48,7 @@ $("#add_cookie_btn").on("click", function () {
 
 javaScriptから保存する場合、document.cookieに格納すれば良い。動的に操作した値はこちらで保存する方が簡単。
 
-## 取得
+### 取得
 
 - Flask
 
@@ -51,7 +66,7 @@ cookie_ = document.cookie
 
 document以下に入っている。
 
-## パース
+### パース
 
 javaScriptのdocument.cookieは文字列として入っているのでパースしてJSONデータとして扱う。
 
@@ -72,9 +87,58 @@ var cookie = parseCookie(document.cookie);
 
 これでJSONデータとなる。
 
+## Storage
+javaScropt側ですべて制御する。
+
+### 追加等
+
+```javaScript
+var storage = localStorage;
+
+// 追加
+storage.setItem('TIC', 'akan');
+
+// 取得
+console.log(storage['TIC']);
+
+//削除
+storage.removeItem('TIC');
+storage.clear();
+```
+
+### Pythonへ
+
+JSON形式で送るためにstorageを文字列化してvalueに入れ送る。
+
+```Python
+$("#get_storage").on("click", function () {
+    $.getJSON($SCRIPT_ROOT + '/get_storage', {storage: JSON.stringify(storage)},
+    function(data) {
+        console.log(data.storage);
+    return false;
+      });
+});
+```
+
+### Pythonで
+
+json.loads()でパースして辞書として扱う。
+
+```Python
+@app.route("/get_storage", methods=["GET", "POST"])
+def get_storage():
+    storage = request.args.get('storage')
+    storage_json = json.loads(storage)
+    print(storage_json)
+    return jsonify({'storage': storage})
+```
+
+PythonではStorageをデータベースへ保存する等する処理を書けば良い。
+
+
 ## 再現
 
-- 再現方法
+### Cookieの場合
 cookieに値が入っている場合、読み込み時に対象のjsを起動してcookieを反映させるようにすればいい。具体的には下記のコードをページ読み込み時に実行する。
 onclickのトリガーで起動しているものに全て適用すれば状態は再現出来る。
 
@@ -85,6 +149,10 @@ if (document.cookie) {
 }
 ```
 
-難しいのは、onclick等で描画している操作をdocument.cookieから同様に呼び出すことができるように、うまく全て関数化すること。
+### Storageの場合
+Storageかcookieにフラグの情報を取っておいて、それが存在するかどうかで読み込み時にjsを起動してStorageのデータを反映させるようにすればいい。
 
+## 難点
+
+難しいのは、onclick等で描画している操作をdocument.cookieから同様に呼び出すことができるように、うまく全て関数化すること。
 

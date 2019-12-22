@@ -18,9 +18,7 @@
     <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
 
     <link href="{{ url_for('static', filename='css/sidebar.css') }}" rel="stylesheet">
-    <script type=text/javascript> $SCRIPT_ROOT={{ request.script_root|tojson|safe }}; </script>
-
-    <style>
+    <script type=text/javascript> $SCRIPT_ROOT={{ request.script_root|tojson|safe }}; </script> <style>
         #jquery-ui-sortable {
             list-style-type: none;
             margin: 0;
@@ -57,10 +55,16 @@
                                 <button type="submit" class="btn btn-primary" id="add_cookie_btn">from javascript</button>
                             </form>
 
-                        <button type="submit" class="btn btn-primary" id="get_cookie">Get cookie</button>
-                <!-- Card_list -->
+                <!-- Get cookie -->
+                <button type="submit" class="btn btn-primary" id="get_cookie">Get cookie</button>
                 <p id="allcookie"> cookies </p>
+
+                <!-- Get local storage -->
+                <button type="submit" class="btn btn-primary" id="get_storage">Get storage</button>
+
+
                 <div id="card_list"></div>
+
             </main>
         </div>
     </div>
@@ -70,18 +74,19 @@
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-<script>
-  window.jQuery || document.write("<script src='local_copy_path/jquery.js'><\/script>");
-</script>
+    <script>
+        window.jQuery || document.write("<script src='local_copy_path/jquery.js'><\/script>");
+    </script>
 
-<script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script> </script>
-
-
-<link type="text/css" rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/cupertino/jquery-ui.min.css">
-<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-<script type="text/javascript" src="http://code.jquery.com/ui/1.10.3/jquery-ui.min.js"></script>
-
-<script type="text/javascript" src="./static/js/cookie_test.js"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
+    </script>
 
 
-</html>     
+    <link type="text/css" rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/cupertino/jquery-ui.min.css">
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/ui/1.10.3/jquery-ui.min.js"></script>
+
+    <script type="text/javascript" src="./static/js/cookie_test.js"></script>
+
+
+</html>

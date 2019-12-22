@@ -1,6 +1,8 @@
 from flask import Flask, render_template, make_response, redirect, request, jsonify
 from flask_bootstrap import Bootstrap
 
+import json
+
 app = Flask(__name__)
 bootstrap = Bootstrap(app)
 
@@ -42,6 +44,14 @@ def get_cookie():
     cookie = request.cookies
 
     return jsonify({'cookie': cookie})
+
+@app.route("/get_storage", methods=["GET", "POST"])
+def get_storage():
+    storage = request.args.get('storage')
+    storage_json = json.loads(storage)
+    print(storage_json)
+    return jsonify({'storage': storage})
+
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5001, debug=True)
