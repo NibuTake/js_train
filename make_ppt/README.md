@@ -110,7 +110,7 @@ storage.clear();
 
 JSON形式で送るためにstorageを文字列化してvalueに入れ送る。
 
-```Python
+```javaScript
 $("#get_storage").on("click", function () {
     $.getJSON($SCRIPT_ROOT + '/get_storage', {storage: JSON.stringify(storage)},
     function(data) {
