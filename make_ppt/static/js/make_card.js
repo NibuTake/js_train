@@ -1,4 +1,4 @@
-function make_card(page_num, type_number, img_path_list){
+function make_card(page_num, type_number, title, img_path_list){
     // Main container.
     var container = document.createElement("div");
     container.classList.add("container-fluid", "mt-5");
@@ -30,10 +30,12 @@ function make_card(page_num, type_number, img_path_list){
     var header_button = document.createElement("button");
     header_button.classList.add("btn", "btn-primary");
     header_button.type = "button";
-    header_button.textContent = "閉じる";
+    header_button.textContent = "GET";
+    header_button.id = "get_report";
 
     var title_col = document.createElement("input");
     title_col.classList.add("form-control", "form-control-lg");
+    title_col.value = title;
 
     // --Card Body.
     var card_body = document.createElement("div");
@@ -80,9 +82,13 @@ function make_card(page_num, type_number, img_path_list){
 };
 
 var img_path_list_summary = ["Rorschach/rs1.jpg", 'Rorschach/rs2.jpg'];
+var img_path_list_summary = ["Rorschach/rs1.jpg", 'Rorschach/rs2.jpg',
+"Rorschach/rs3.jpg", 'Rorschach/rs4.jpg'];
 
 
-make_card(1, 2, img_path_list_summary);
+make_card(1, 2, "Sample", img_path_list_summary);
+make_card(2, 4, "Test", img_path_list_summary);
+
 
 // Make content part.
 function make_content(page_num, card_num, row_num, file_name_path) {
@@ -96,6 +102,7 @@ function make_content(page_num, card_num, row_num, file_name_path) {
     img.classList.add("card-img-top");
     img.src = "./static/img/" + file_name_path;
     img.alt = "Crad image cap";
+    img.id = `card_img_${page_num}_${card_num}`;
 
     var editor_body = document.createElement("div");
     editor_body.classList.add("card-body");
