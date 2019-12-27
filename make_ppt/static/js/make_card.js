@@ -119,7 +119,21 @@ function make_content(page_num, card_num, row_num, file_name_path) {
     edit_buttn.dataset.toggle = "modal";
     edit_buttn.dataset.target = "#exampleModal";
 
+    var folder_selector = document.createElement("form");
+    folder_selector.name = "folder_select";
+    var f_selector_select = document.createElement("select");
+    f_selector_select.classList.add("form-control");
+    f_selector_select.id = `folder_name_page_${page_num}-card_${card_num}`;
+
+    for (op of JSON.parse(localStorage.folder_list)){
+        var f_option = document.createElement("option");
+        f_option.textContent = op;
+        f_selector_select.appendChild(f_option);
+    }
+    folder_selector.appendChild(f_selector_select);
+
     editor_body.appendChild(editor);
+    editor.appendChild(folder_selector);
     editor.appendChild(btn_group);
     btn_group.appendChild(edit_buttn);
     

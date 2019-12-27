@@ -57,7 +57,8 @@ def get_storage():
 
 @app.route("/get_file_list", methods=["GET", "POST"])
 def get_file_list():
-    file_list = os.listdir(path + "/static/img/Rorschach")
+    img_path = request.args.get('img_path')
+    file_list = os.listdir(path + "/static/img/{}".format(img_path))
     return jsonify({'file_list': file_list})
 
 if __name__ == "__main__":
